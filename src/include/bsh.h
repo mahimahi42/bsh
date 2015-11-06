@@ -10,6 +10,11 @@
 #ifndef _BSH_H
 #define _BSH_H
 
+/**
+@def The default bsh prompt
+*/
+#define DEFAULT_BSH_PROMPT "bsh> "
+
 int main(int, char**);
 int bsh_launch(char**);
 int bsh_execute(char**);
