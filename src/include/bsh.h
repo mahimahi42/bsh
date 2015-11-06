@@ -1,3 +1,8 @@
+@file src/include/bsh.h
+@author Bryce Davis
+@date 6 November 2015
+@brief A simple toy shell written in C
+@copyright Copyright (c) 2015 Bryce Davis. Released under the MIT License. See the LICENSE.txt file for details.
 #ifndef _BSH_H
 #define _BSH_H
 
