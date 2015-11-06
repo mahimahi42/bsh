@@ -34,3 +34,4 @@
 ##### End of GitHub's C gitignore
 
 .vagrant/
+doc/
