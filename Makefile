@@ -20,5 +20,8 @@ $(APP): $(OBJECTS)
 $(OBJECTS): $(SOURCES)
 	$(CC) -c $(CFLAGS) $(WARNFLAGS) $< -o $@
 
-clean:
+clean: doc_clean
 	rm -rf src/*.o
+
+doc_clean:
+	rm -rf doc/*
