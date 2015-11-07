@@ -36,4 +36,5 @@
 .vagrant/
 doc/
 bin/
+obj/
 .DS_Store

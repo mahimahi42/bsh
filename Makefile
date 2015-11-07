@@ -1,36 +1,88 @@
-CC=gcc
+# Compiler
+CC := gcc
 
-SRCDIR=src
-BINDIR=bin
-INCDIR=$(SRCDIR)/include
-DIR_GUARD=@mkdir -p $(@D)
+# Target (final program)
+TARGET := bsh
 
-WARNFLAGS=-Wall -Wextra -pedantic
-CFLAGS=-I$(INCDIR) $(WARNFLAGS) -std=c11 -pg
-SOURCES:=$(shell find $(SRCDIR) -name '*.c')
-OBJECTS:=$(SOURCES:.c=.o)
-VPATH=src
+# Directories
+SRCDIR := src
+BINDIR := bin
+DOCDIR := doc
+BUILDDIR := obj
+INCDIR := $(SRCDIR)/include
 
-appname=bsh
-APP=$(BINDIR)/$(appname)
+# File extensions
+SRCEXT := c
+DEPEXT := d
+OBJEXT := o
 
-.PHONY: all doc clean
+# Flags
+INC := -I$(INCDIR)
+WFLAGS := -Wall -Wextra -pedantic
+CFLAGS := $(WFLAGS) -std=c11 -g
 
-all: $(APP)
+# Sources & Objects
+SOURCES := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
+OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 
-$(APP): $(OBJECTS)
-	$(DIR_GUARD)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $@
+# Non-file targets
+.PHONY: all dirs doc clean bin_clean doc_clean obj_clean
 
-%.o: %.c
-	$(DIR_GUARD)
-	$(CC) $(CFLAGS) -c $< -o $@
+# Default target
+all: dirs $(TARGET)
 
+# Setup necessary directories
+dirs:
+	@mkdir -p $(BINDIR)
+	@mkdir -p $(DOCDIR)
+	@mkdir -p $(BUILDDIR)
+
+# Documentation
 doc:
 	doxygen Doxyfile
 
-clean: doc_clean
-	rm -rf src/*.o
+# Get dependency info for existing object files
+-include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
 
+# Link object files into executable
+$(TARGET): $(OBJECTS)
+	$(CC) -o $(BINDIR)/$(TARGET) $^
+
+# Compile object files
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	# Generate dependencies
+	@$(CC) $(CFLAGS) $(INC) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
+	@cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
+	@sed -e 's|.*:|$(BUILDDIR)/$*.$(OBJEXT):|' < $(BUILDDIR)/$*.$(DEPEXT).tmp > $(BUILDDIR)/$*.$(DEPEXT)
+	@sed -e 's/.*://' -e 's/\\$$//' < $(BUILDDIR)/$*.$(DEPEXT).tmp | fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(BUILDDIR)/$*.$(DEPEXT)
+	@$(RM) $(BUILDDIR)/$*.$(DEPEXT).tmp
+
+# Cleaning
+clean: bin_clean doc_clean obj_clean
+
+# Clean binaries
+bin_clean:
+	$(RM) -rf $(BINDIR)
+
+# Clean documentation
 doc_clean:
-	rm -rf doc/*
+	$(RM) -rf $(DOCDIR)
+
+# Clean object files
+obj_clean:
+	$(RM) -rf $(BUILDDIR)
+
+# $(APP): $(OBJECTS)
+# 	$(DIR_GUARD)
+# 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
+
+# %.o: %.c
+# 	$(DIR_GUARD)
+# 	$(CC) $(CFLAGS) -c $< -o $@
+
+# clean: doc_clean
+# 	rm -rf src/*.o
+
+# doc_clean:
+# 	rm -rf doc/*
