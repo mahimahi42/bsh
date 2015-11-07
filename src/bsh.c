@@ -49,13 +49,25 @@ void bsh_loop(void)
 
 	do {
 		printf(DEFAULT_BSH_PROMPT);
-		line = bsh_read_line();
-		args = bsh_split_line(line);
-
-		// DEBUG
-		status = 0;
+		line   = bsh_read_line();
+		args   = bsh_split_line(line);
+		status = bsh_execute(args);
 
 		free(line);
 		free(args);
 	} while (status);
+}
+
+int bsh_launch(char** args)
+{
+	
+
+	return 1;
+}
+
+int bsh_execute(char** args)
+{
+
+
+	return bsh_launch(args);
 }
