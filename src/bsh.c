@@ -12,6 +12,7 @@
 #include "global.h"
 #include "bsh.h"
 #include "io.h"
+#include "builtins.h"
 
 /**
 @fn int main(int argc, char** argv)
@@ -24,7 +25,7 @@ int main(int argc, char** argv)
 {
 	UNUSED(argc);
 	UNUSED(argv);
-	
+
 	// Load any configuration files
 
 	// Run the command loop
@@ -56,6 +57,12 @@ void bsh_loop(void)
 	} while (status);
 }
 
+/**
+@fn
+@brief
+@param args
+@return
+*/
 int bsh_launch(char** args)
 {
 	// PIDs for our use
@@ -86,9 +93,24 @@ int bsh_launch(char** args)
 	return 1;
 }
 
+/**
+@fn
+@brief
+@param args
+@return
+*/
 int bsh_execute(char** args)
 {
+	if (args[0] == NULL) {
+		// Empty command, we're done here
+		return 1;
+	}
 
+	for (int i = 0; i < NUM_BUILTINS; i++) {
+		if (strcmp(args[0], builtin_str[i]) == 0) {
+			return (*builtin_func[i])(args);
+		}
+	}
 
 	return bsh_launch(args);
 }

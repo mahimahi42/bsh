@@ -23,4 +23,9 @@ Macro to suppress unused parameter warnings
 */
 #define UNUSED(x) (void)(x)
 
+/**
+
+*/
+#define UNUSED_VAR(x) do { (void)(x); } while (0);
+
 #endif
