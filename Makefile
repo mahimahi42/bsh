@@ -14,7 +14,9 @@ VPATH=src
 appname=bsh
 APP=$(BINDIR)/$(appname)
 
-all: $(APP) doc
+.PHONY: all doc clean
+
+all: $(APP)
 
 $(APP): $(OBJECTS)
 	$(DIR_GUARD)
@@ -22,7 +24,7 @@ $(APP): $(OBJECTS)
 
 %.o: %.c
 	$(DIR_GUARD)
-	$(CC) $(CFLAGS) $(WARNFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 doc:
 	doxygen Doxyfile
