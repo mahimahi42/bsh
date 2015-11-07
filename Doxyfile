@@ -7,7 +7,7 @@ Doxyfile 1.8.10
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = bsh
 PROJECT_NUMBER         = 0.0.1
-PROJECT_BRIEF          = "A toy UNIX shell in C"
+PROJECT_BRIEF          = "A toy UNIX shell in C based on Stephen Brennan's shell tutorial"
 PROJECT_LOGO           = 
 OUTPUT_DIRECTORY       = /vagrant/doc
 CREATE_SUBDIRS         = NO
