@@ -9,12 +9,7 @@
 @copyright Copyright (c) 2015 Bryce Davis. Released under the MIT License. 
 					 See the LICENSE.txt file for details.
 */
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-
+#include "global.h"
 #include "bsh.h"
 #include "io.h"
 
@@ -27,6 +22,9 @@
 */
 int main(int argc, char** argv)
 {
+	UNUSED(argc);
+	UNUSED(argv);
+	
 	// Load any configuration files
 
 	// Run the command loop
