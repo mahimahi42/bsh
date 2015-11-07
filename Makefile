@@ -9,9 +9,9 @@ OBJECTS=$(SOURCES:.c=.o)
 appname=bsh
 APP=$(BINDIR)/$(appname)
 
-all: $(APP)
+all: $(APP) doc
 
-doc: Doxyfile
+doc: $(SOURCES)
 	doxygen Doxyfile
 
 $(APP): $(OBJECTS)

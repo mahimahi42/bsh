@@ -9,10 +9,18 @@
 */
 #include "bsh.h"
 
+#include <sys/wait.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
 
 /**
-
+@fn int main(int argc, char** argv)
+@brief Begin the command processing loop
+@param argc the number of command line arguments
+@param argv a char array of the cmd line args
+@return EXIT_SUCCESS for good style!
 */
 int main(int argc, char** argv)
 {
@@ -24,4 +32,13 @@ int main(int argc, char** argv)
 	// Perform any shutdown/cleanup
 
 	return EXIT_SUCCESS;
+}
+
+/**
+@fn void bsh_loop()
+@brief Repeatedly prompt for a command until user exits
+*/
+void bsh_loop(void)
+{
+
 }
