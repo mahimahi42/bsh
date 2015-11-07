@@ -9,7 +9,7 @@
 #ifndef _BSH_IO_H
 #define _BSH_IO_H
 
-char* bsh_read_line(void);
-char** bsh_split_line(char*);
+extern char* bsh_read_line(void);
+extern char** bsh_split_line(char*);
 
 #endif

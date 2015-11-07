@@ -16,9 +16,9 @@ The default bsh prompt
 */
 #define DEFAULT_BSH_PROMPT "bsh> "
 
-int main(int, char**);
-int bsh_launch(char**);
-int bsh_execute(char**);
-void bsh_loop(void);
+//extern int main(int, char**);
+extern int bsh_launch(char**);
+extern int bsh_execute(char**);
+extern void bsh_loop(void);
 
 #endif

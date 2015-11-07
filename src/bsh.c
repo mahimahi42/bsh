@@ -41,5 +41,12 @@ int main(int argc, char** argv)
 */
 void bsh_loop(void)
 {
+	char*  line;		///< The current line input by the user
+	char** args;		///< The arguments to the command
+	int    status;  ///< The last process' status
 
+	do {
+		printf(DEFAULT_BSH_PROMPT);
+		
+	} while (status);
 }
