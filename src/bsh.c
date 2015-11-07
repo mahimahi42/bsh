@@ -52,6 +52,9 @@ void bsh_loop(void)
 		line = bsh_read_line();
 		args = bsh_split_line(line);
 
+		// DEBUG
+		status = 0;
+
 		free(line);
 		free(args);
 	} while (status);
