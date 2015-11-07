@@ -9,7 +9,7 @@ BSH is a toy shell written in C. It is mostly based off of the excellent tutoria
 libc
 gcc
 make
-doxygen (for documentation)
+doxygen # (for documentation)
 ```
 
 #### Running bsh
