@@ -10,10 +10,10 @@
 					 See the LICENSE.txt file for details.
 */
 #include <sys/wait.h>
+#include <sys/types.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <string.h>
 
 #include "bsh.h"
 #include "io.h"
@@ -60,7 +60,30 @@ void bsh_loop(void)
 
 int bsh_launch(char** args)
 {
-	
+	// PIDs for our use
+	pid_t pid;
+	// Process status
+	int sts;
+
+	pid = fork();
+	if (pid == 0) {
+		// We are the child process
+		// If exec returns an error, we let the user know what the error is, and
+		// that we caused it :(
+		if (execvp(args[0], args) == -1) {
+			perror("bsh");
+		}
+		exit(EXIT_FAILURE);
+	} else if (pid < 0) {
+		// There was an error forking
+		// We let the user know what the error is, and that we caused it :(
+		perror("bsh");
+	} else {
+		// We are the parent process
+		do {
+			waitpid(pid, &sts, WUNTRACED);
+		} while (!WIFEXITED(sts) && !WIFSIGNALED(sts));
+	}
 
 	return 1;
 }

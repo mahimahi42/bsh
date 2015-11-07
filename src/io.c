@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <unistd.h>
+#include <string.h>
 
 /**
 @fn char* bsh_read_line(void)

@@ -9,6 +9,8 @@
 #ifndef _BSH_IO_H
 #define _BSH_IO_H
 
+#define _GNU_SOURCE
+
 /**
 @def BSH_RL_BUF_SIZE
 The starting size of the buffer holding the input lines to our shell
