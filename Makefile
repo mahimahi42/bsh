@@ -1,29 +1,29 @@
 # Compiler
-CC := gcc
+CC       := gcc
 
 # Target (final program)
-TARGET := bsh
+TARGET   := bsh
 
 # Directories
-SRCDIR := src
-BINDIR := bin
-DOCDIR := doc
+SRCDIR   := src
+BINDIR   := bin
+DOCDIR   := doc
 BUILDDIR := obj
-INCDIR := $(SRCDIR)/include
+INCDIR   := $(SRCDIR)/include
 
 # File extensions
-SRCEXT := c
-DEPEXT := d
-OBJEXT := o
+SRCEXT   := c
+DEPEXT   := d
+OBJEXT   := o
 
 # Flags
-INC := -I$(INCDIR)
-WFLAGS := -Wall -Wextra -pedantic
-CFLAGS := $(WFLAGS) -std=c11 -g
+INC      := -I$(INCDIR)
+WFLAGS   := -Wall -Wextra -pedantic
+CFLAGS   := $(WFLAGS) -std=c11 -g
 
 # Sources & Objects
-SOURCES := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
-OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
+SOURCES  := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
+OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 
 # Non-file targets
 .PHONY: all dirs doc clean bin_clean doc_clean obj_clean
@@ -56,6 +56,7 @@ $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 	# Generate dependencies
 	@$(CC) $(CFLAGS) $(INC) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
+	# Ensure final object target is in correct directory in dependency
 	@cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
 	@sed -e 's|.*:|$(BUILDDIR)/$*.$(OBJEXT):|' < $(BUILDDIR)/$*.$(DEPEXT).tmp > $(BUILDDIR)/$*.$(DEPEXT)
 	@sed -e 's/.*://' -e 's/\\$$//' < $(BUILDDIR)/$*.$(DEPEXT).tmp | fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(BUILDDIR)/$*.$(DEPEXT)
@@ -75,17 +76,3 @@ doc_clean:
 # Clean object files
 obj_clean:
 	$(RM) -rf $(BUILDDIR)
-
-# $(APP): $(OBJECTS)
-# 	$(DIR_GUARD)
-# 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
-
-# %.o: %.c
-# 	$(DIR_GUARD)
-# 	$(CC) $(CFLAGS) -c $< -o $@
-
-# clean: doc_clean
-# 	rm -rf src/*.o
-
-# doc_clean:
-# 	rm -rf doc/*
