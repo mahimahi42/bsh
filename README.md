@@ -10,4 +10,5 @@ git clone https://github.com/mahimahi42/bsh.git
 cd bsh
 make
 make doc # Optional
+bin/bsh
 ```
