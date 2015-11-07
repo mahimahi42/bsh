@@ -6,7 +6,7 @@ INCDIR=$(SRCDIR)/include
 DIR_GUARD=@mkdir -p $(@D)
 
 WARNFLAGS=-Wall -Wextra -pedantic
-CFLAGS=-I$(INCDIR) $(WARNFLAGS) -std=c11 -fPIC
+CFLAGS=-I$(INCDIR) $(WARNFLAGS) -std=c11 -pg
 SOURCES:=$(shell find $(SRCDIR) -name '*.c')
 OBJECTS:=$(SOURCES:.c=.o)
 VPATH=src
