@@ -19,8 +19,8 @@
 /**
 @fn int main(int argc, char** argv)
 @brief Begin the command processing loop
-@param argc the number of command line arguments
-@param argv a char array of the cmd line args
+@param argc The number of command line arguments
+@param argv A char array of the cmd line args
 @return EXIT_SUCCESS for good style!
 */
 int main(int argc, char** argv)
@@ -47,6 +47,6 @@ void bsh_loop(void)
 
 	do {
 		printf(DEFAULT_BSH_PROMPT);
-		
+
 	} while (status);
 }
