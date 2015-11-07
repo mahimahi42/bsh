@@ -10,6 +10,7 @@ libc
 gcc
 make
 doxygen # (for documentation)
+vagrant # (for easy development)
 ```
 
 #### Running bsh
