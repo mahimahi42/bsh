@@ -68,9 +68,9 @@ char* bsh_read_line(void)
 @fn char** bsh_split_line(char* line)
 @brief Splits an input line into individual tokens
 @param line The input line
-@return The input line as a buffer of individual tokens
+@return The input line as an array of individual tokens
 */
 char** bsh_split_line(char* line)
 {
-	return 0;
+	
 }
