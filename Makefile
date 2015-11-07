@@ -31,6 +31,9 @@ OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT))
 # Default target
 all: dirs $(TARGET)
 
+# Remake target for development
+remake: clean all
+
 # Setup necessary directories
 dirs:
 	@mkdir -p $(BINDIR)
