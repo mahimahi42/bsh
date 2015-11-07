@@ -20,7 +20,7 @@ all: $(APP)
 
 $(APP): $(OBJECTS)
 	$(DIR_GUARD)
-	$(CC) $(OBJECTS) -o $@
+	$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
 %.o: %.c
 	$(DIR_GUARD)
