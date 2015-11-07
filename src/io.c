@@ -11,12 +11,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <unistd.h>
 
 /**
 @fn char* bsh_read_line(void)
 @brief Reads a line from stdin
 @return A char buffer containing the input line
 */
+char* bsh_read_line(void)
+{
+	char* line = NULL;
+	ssize_t bufsize = 0;
+	getline(&line, &bufsize, stdin);
+	return line;
+}
+/*
 char* bsh_read_line(void)
 {
 	size_t bufsize = BSH_RL_BUF_SIZE;
@@ -52,15 +61,6 @@ char* bsh_read_line(void)
 			}
 		}
 	}
-}
-
-/*
-char* bsh_read_line(void)
-{
-	char* line = NULL;
-	ssize_t bufsize = 0;
-	getline(&line, &bufsize, stdin);
-	return line;
 }
 */
 
