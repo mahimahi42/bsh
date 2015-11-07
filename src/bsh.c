@@ -58,10 +58,10 @@ void bsh_loop(void)
 }
 
 /**
-@fn
-@brief
-@param args
-@return
+@fn int bsh_launch(char** args)
+@brief Start a process and wait for it to terminate
+@param args Null-terminated list of arguments, starting with the program name
+@return 1 on success
 */
 int bsh_launch(char** args)
 {
@@ -94,10 +94,10 @@ int bsh_launch(char** args)
 }
 
 /**
-@fn
-@brief
-@param args
-@return
+@fn int bsh_execute(char** args)
+@brief Execute builtins or programs
+@param args Null-terminated list of arguments, starting with the program name
+@return 1 if the shell should continue, 0 otherwise
 */
 int bsh_execute(char** args)
 {
@@ -106,11 +106,13 @@ int bsh_execute(char** args)
 		return 1;
 	}
 
+	// First, see if the user wants a builtin
 	for (int i = 0; i < NUM_BUILTINS; i++) {
 		if (strcmp(args[0], builtin_str[i]) == 0) {
 			return (*builtin_func[i])(args);
 		}
 	}
 
+	// Otherwise, launch a program
 	return bsh_launch(args);
 }

@@ -58,6 +58,7 @@ int bsh_help(char** args)
 */
 int bsh_exit(char** args)
 {
+	UNUSED(builtin_func); // To suppress compiler warning
 	UNUSED(args);
 	return 0;
 }
